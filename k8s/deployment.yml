@@ -16,7 +16,7 @@ spec:
         app: project1-email-api
     spec:
       containers:
-        - image: olvmky/p1-email-api
+        - image: olvmky/email-api
           imagePullPolicy: Always
           name: project1-email-api
           ports:
