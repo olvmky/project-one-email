@@ -17,9 +17,7 @@ pipeline {
     }
 
     stage('Build') {
-          when {
-             branch 'main'
-          }
+
           steps {
             withMaven {
               sh 'mvn -f pom.xml clean install'
@@ -29,21 +27,17 @@ pipeline {
     }
 
     stage('Docker Build') {
-           when {
-               branch 'main'
-           }
+
            steps {
                script {
                   echo "$registry:$currentBuild.number"
                   dockerImage = docker.build ("$registry", "-f Dockerfile .")
                }
            }
-       }
+    }
 
     stage('Docker Deliver') {
-      when {
-        branch 'main'
-      }
+
       steps {
         script {
           docker.withRegistry('',dockerHubCreds) {
@@ -54,9 +48,7 @@ pipeline {
     }
 
     stage('Deploy to GKE') {
-            when {
-                branch 'main'
-            }
+
             steps{
                sh 'sed -i "s/%TAG%/$BUILD_NUMBER/g" ./k8s/deployment.yml'
                sh 'cat ./k8s/deployment.yml'
