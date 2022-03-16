@@ -38,15 +38,3 @@ spec:
   selector:
     app: email-deployment
 
----
-apiVersion: monitoring.coreos.com/v1
-kind: ServiceMonitor
-metadata:
-  name: email-service-monitor
-spec:
-  selector:
-    matchLabels:
-      app: email-deployment
-  endpoints:
-    - port: http-app2
-      path: "/actuator/prometheus"
