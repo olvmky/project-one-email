@@ -31,8 +31,7 @@ spec:
     app: project1-email-api
   type: LoadBalancer
   ports:
-    - name: http-app2
-      port: 8088
+    - port: 8088
       targetPort: 8088
 
 
